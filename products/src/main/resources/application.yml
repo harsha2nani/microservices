@@ -5,6 +5,9 @@ spring:
     url: jdbc:mysql://localhost:3306/harsha_mart
     username: root
     password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
 
 
 server:

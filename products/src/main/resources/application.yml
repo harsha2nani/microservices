@@ -22,3 +22,15 @@ eureka:
 
   instance:
     hostname: localhost
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
+        exclude: caches
+    health:
+      show-details: always
+
+

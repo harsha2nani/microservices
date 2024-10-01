@@ -4,6 +4,9 @@ import com.demo.products.DAO.ProductDAO;
 import com.demo.products.DTO.ProdResDTO;
 import com.demo.products.DTO.ProductDTO;
 import com.demo.products.Service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,8 @@ public class ProductController {
      *
      * @return List of Products
      */
+    @Operation(summary = "It will fetch all the Products/Items")
+    @ApiResponse(responseCode = "200",description = "Records Returned Successfully!!!!")
     @GetMapping()
     public ResponseEntity<?> prods(){
         List<ProdResDTO> productDTOList = prodService.getAllItems();
@@ -42,6 +47,13 @@ public class ProductController {
      * @return Status of product saved in database or not
      * @throws IOException it throws IO Exception while saving byte stream to DB
      */
+    @Operation(summary = "Add Items to the Products List")
+    @ApiResponses(
+            {
+                    @ApiResponse(responseCode = "200", description = "Record Inserted Successfully"),
+                    @ApiResponse(responseCode = "400", description = "Record Not Inserted")
+            }
+    )
     @PostMapping()
     public ResponseEntity<String> addItem(@ModelAttribute ProductDTO productDTO, @RequestParam("image")MultipartFile image) throws IOException {
        ProductDAO prod = prodService.addItem(productDTO,image);
@@ -60,6 +72,11 @@ public class ProductController {
      * @return Status of the Updated Record
      * @throws IOException It Handles IO Exception while storing byte Array to DB
      */
+    @Operation(summary = "Update the Item to latest")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "Item/Prod Updated Successfully"),
+            @ApiResponse(responseCode = "400",description="Record not Updated to DB")
+    })
     @PutMapping("/{id}")
     public ResponseEntity<String> updateProduct(@PathVariable("id") int id,@ModelAttribute ProductDTO productDTO,@RequestParam("image") MultipartFile image) throws IOException {
        ProductDAO prodDao = prodService.updateProduct(id,productDTO,image);
@@ -76,6 +93,11 @@ public class ProductController {
      * @return The Status of the Deleted Record
      */
 
+    @Operation(summary = "Used for deleting the record from DB")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200",description = "Item deleted Successfully!!"),
+            @ApiResponse(responseCode = "204",description = "Record Not Found with the provided Id")
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteRecord(@PathVariable("id") int id){
      ProductDAO productDAO =  prodService.deleteRecord(id);

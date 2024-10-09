@@ -1,36 +1,6 @@
 spring:
-  application:
-    name: product-service
-  dataSource:
-    url: jdbc:mysql://localhost:3306/harsha_mart
-    username: root
-    password: root
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-
-server:
-  port: 8081
-
-eureka:
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      default-zone: http://localhost:8761/eureka/
-
-  instance:
-    hostname: localhost
-
-management:
-  endpoints:
-    web:
-      base-path: /actuator
-      exposure:
-        include: "*"
-        exclude: caches
-    health:
-      show-details: always
-
+  config:
+    import: configserver:http://localhost:8085
+  profiles:
+    active: product,product-dev
 

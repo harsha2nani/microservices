@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: security-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/harsha_mart
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    instance:
+      hostname: localhost
+    service-url:
+      default-zone: http://localhost:8761/eureka
+
+server:
+  port: 8082
+

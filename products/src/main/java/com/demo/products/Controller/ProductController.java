@@ -31,7 +31,7 @@ public class ProductController {
      */
     @Operation(summary = "It will fetch all the Products/Items")
     @ApiResponse(responseCode = "200",description = "Records Returned Successfully!!!!")
-    @GetMapping()
+    @GetMapping("/getAll")
     public ResponseEntity<?> prods(){
         List<ProdResDTO> productDTOList = prodService.getAllItems();
         HttpHeaders headers = new HttpHeaders();
@@ -54,7 +54,7 @@ public class ProductController {
                     @ApiResponse(responseCode = "400", description = "Record Not Inserted")
             }
     )
-    @PostMapping()
+    @PostMapping("/add")
     public ResponseEntity<String> addItem(@ModelAttribute ProductDTO productDTO, @RequestParam("image")MultipartFile image) throws IOException {
        ProductDAO prod = prodService.addItem(productDTO,image);
        if(prod!=null){
@@ -77,7 +77,7 @@ public class ProductController {
             @ApiResponse(responseCode = "200",description = "Item/Prod Updated Successfully"),
             @ApiResponse(responseCode = "400",description="Record not Updated to DB")
     })
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<String> updateProduct(@PathVariable("id") int id,@ModelAttribute ProductDTO productDTO,@RequestParam("image") MultipartFile image) throws IOException {
        ProductDAO prodDao = prodService.updateProduct(id,productDTO,image);
        if(prodDao!=null){
@@ -98,12 +98,18 @@ public class ProductController {
             @ApiResponse(responseCode = "200",description = "Item deleted Successfully!!"),
             @ApiResponse(responseCode = "204",description = "Record Not Found with the provided Id")
     })
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteRecord(@PathVariable("id") int id){
      ProductDAO productDAO =  prodService.deleteRecord(id);
      if(productDAO!=null)
          return ResponseEntity.status(HttpStatus.OK).body("Record Deleted Successfully!!!");
      else
          return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No Record found in database");
+    }
+
+    @GetMapping("/admin")
+    public String admin()
+    {
+      return "Welcome from admin";
     }
 }

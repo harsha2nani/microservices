@@ -10,8 +10,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
-
-import java.io.ObjectInputFilter;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;

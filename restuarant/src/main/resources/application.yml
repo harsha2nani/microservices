@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: restuarant-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/Harsha_mart
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8085
+
+

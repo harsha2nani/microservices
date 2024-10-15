@@ -3,12 +3,17 @@ package com.demo.products.Service;
 import com.demo.products.DAO.ProductDAO;
 import com.demo.products.DTO.ProdResDTO;
 import com.demo.products.DTO.ProductDTO;
+import com.demo.products.DTO.RestuarantDTO;
 import com.demo.products.Repository.ProductRepo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -22,9 +27,19 @@ public class ProductService {
 
     @Autowired
     private ProductRepo productRepo;
+    @Autowired
+    private RestTemplate restTemplate;
 
     public List<ProdResDTO> getAllItems() {
      List<ProductDAO> prodList = productRepo.findAll();
+
+        // Headers and Rest Template
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Void> entity = new HttpEntity<>(headers);
+        List<RestuarantDTO> res = List.of(restTemplate.exchange("http://localhost:8080/RESTUARANT-SERVICE-DEV/restuarant/hotel/getAll", HttpMethod.GET, entity, RestuarantDTO[].class).getBody());
+
+
         return prodList.stream().map(productDAO -> ProdResDTO.builder().id(productDAO.getId())
                 .name(productDAO.getName())
                 .prize(productDAO.getPrize())

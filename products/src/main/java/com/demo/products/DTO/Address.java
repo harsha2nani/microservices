@@ -1,13 +1,13 @@
-package com.demo.restuarant.DTO;
+package com.demo.products.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class AddressDTO {
+@AllArgsConstructor
+public class Address {
     private Long id;
     private String country;
     private String state;

@@ -20,7 +20,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String country;
-    private String State;
+    private String state;
     private String city;
     private String street;
     private String pincode;

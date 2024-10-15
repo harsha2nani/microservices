@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,19 @@ public class AddressService {
     private ModelMapper mapper;
 
     public List<AddressDTO> fetchAddress() {
+        List<AddressDTO> addressDTOList = new ArrayList<>();
         List<Address> addressList = addressRepo.findAll();
-        List<AddressDTO> addressDTOList = addressList.stream().map(address -> mapper.map(addressList,AddressDTO.class)).toList();
+        for(Address address:addressList){
+            AddressDTO builder = new AddressDTO();
+            builder.setId(address.getId());
+            builder.setCountry(address.getCountry());
+            builder.setState(address.getState());
+            builder.setCity((address.getCity()));
+            builder.setPincode(address.getPincode());
+            builder.setLandMark(address.getLandMark());
+            builder.setStreet(address.getStreet());
+            addressDTOList.add(builder);
+        }
         return addressDTOList;
     }
 

@@ -64,7 +64,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
     }
 
     private boolean isRestrictedEndpoint(String path, List<String> roles) {
-       List<String> adminApis = Arrays.asList("/product/add","/product/delete/","/product/update/");
+       List<String> adminApis = Arrays.asList("/product/add","/product/delete/","/product/update/",
+               "/restuarant/hotel/addRestuarant","/restuarant/hotel/update/","/restuarant/hotel/delete/",
+               "/restuarant/address/addAddress","/restuarant/hotel/update/","/restuarant/address/delete/");
         // Define the endpoints that require specific roles
         for(String adminApi:adminApis){
             if(path.startsWith(adminApi)){

@@ -14,3 +14,10 @@ spring:
           predicates:
             - Path=/auth/**
 
+        - id: restuarant-service
+          uri: lb://RESTUARANT-SERVICE-DEV
+          predicates:
+              - Path=/restuarant/**
+          filters:
+              - AuthenticationFilter
+
